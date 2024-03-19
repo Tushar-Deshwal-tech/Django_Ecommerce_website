@@ -4,8 +4,6 @@ from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from .models import UserData, OrderData, OrderItem, ReviewData
 from django.utils import timezone
-from django.db import IntegrityError
-import pytz
 import re
 import json
 
