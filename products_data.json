@@ -1,0 +1,307 @@
+[
+    {
+        "category": "men",
+        "data": [
+            {
+                "id": 1,
+                "name": "Men's T-Shirts",
+                "brand": "XYZ Brand",
+                "price": "259",
+                "rating": 5.9,
+                "description": "A classic blue T-shirt for men, comfortable and stylish.",
+                "category": "T-Shirts",
+                "image": "Men's T-Shirts",
+                "color": "black",
+                "size": "m"
+            },
+            {
+                "id": 2,
+                "name": "Men's shirts",
+                "brand": "ABC Denim",
+                "price": "399",
+                "rating": 9.9,
+                "description": "Black jeans for men, perfect for a casual look.",
+                "category": "shirt",
+                "image": "Men's shirts",
+                "color": "brown",
+                "size": "m"
+            },
+            {
+                "id": 3,
+                "name": "Men's Hoodie",
+                "brand": "Urban Style",
+                "price": "599",
+                "rating": 8.5,
+                "description": "Warm and stylish hoodie for men, ideal for colder days.",
+                "category": "hoodie",
+                "image": "Men's Hoodie",
+                "color": "gray",
+                "size": "l"
+            },
+            {
+                "id": 4,
+                "name": "Men's Jeans",
+                "brand": "Fashion Forward",
+                "price": "499",
+                "rating": 7.2,
+                "description": "Classic blue jeans for men, a versatile wardrobe essential.",
+                "category": "jeans",
+                "image": "Men's Jeans",
+                "color": "blue",
+                "size": "32"
+            },
+            {
+                "id": 5,
+                "name": "Men's Polo Shirt",
+                "brand": "SportyStyle",
+                "price": "349",
+                "rating": 6.8,
+                "description": "Casual polo shirt for men, perfect for a sporty and trendy look.",
+                "category": "Polo Shirt",
+                "image": "Men's Polo Shirt",
+                "color": "red",
+                "size": "m"
+            },
+            {
+                "id": 6,
+                "name": "Men's Jacket", 
+                "brand": "OutdoorPro",
+                "price": "799",
+                "rating": 8.0,
+                "description": "Stylish and durable jacket for men, suitable for outdoor activities.",
+                "category": "Jacket",
+                "image": "Men's Jacket",
+                "color": "black",
+                "size": "xl"
+            }
+        ]
+    },
+    {
+        "category": "women",
+        "data": [
+            {
+                "id": 1,
+                "name": "Women's Dress",
+                "brand": "Fashionista",
+                "price": "2999",
+                "rating": 4.9,
+                "description": "A stunning red dress for women, suitable for special occasions.",
+                "category": "dress",
+                "image": "Women's Dress",
+                "color": "green",
+                "size": "m"
+            },
+            {
+                "id": 2,
+                "name": "Women's jeans",
+                "brand": "Chic Trends",
+                "price": "999",
+                "rating": 2.9,
+                "description": "A stylish white jeans, great for a sophisticated look.",
+                "category": "jeans",
+                "image": "Women's jeans",
+                "color": "blue",
+                "size": "m"
+            },
+            {
+                "id": 3,
+                "name": "Pink Women's Top",
+                "brand": "Elegance",
+                "price": "499",
+                "rating": 6.8,
+                "description": "Chic pink top for women, perfect for formal or casual occasions.",
+                "category": "top",
+                "image": "Pink Women's Top",
+                "color": "pink",
+                "size": "m"
+            },
+            {
+                "id": 4,
+                "name": "Women's Skirt",
+                "brand": "Feminine Touch",
+                "price": "799",
+                "rating": 8.0,
+                "description": "Flowy and elegant skirt for women, ideal for a graceful look.",
+                "category": "skirt",
+                "image": "Women's Skirt",
+                "color": "black",
+                "size": "m"
+            },
+            {
+                "id": 5,
+                "name": "Women's Jumpsuit",
+                "brand": "TrendyLook",
+                "price": "1299",
+                "rating": 7.5,
+                "description": "Stylish jumpsuit for women, perfect for a trendy and fashionable vibe.",
+                "category": "jumpsuit",
+                "image": "Women's Jumpsuit",
+                "color": "gray",
+                "size": "l"
+            },
+            {
+                "id": 6,
+                "name": "Women's Cardigan",
+                "brand": "CozyStyle",
+                "price": "899",
+                "rating": 8.2,
+                "description": "Warm and cozy cardigan for women, ideal for chilly days.",
+                "category": "Cardigan",
+                "image": "Women's Cardigan",
+                "color": "blue",
+                "size": "s"
+            }
+        ]
+    },
+    {
+        "category": "electronics",
+        "data": [
+            {
+                "id": 1,
+                "name": "Smartphone",
+                "brand": "TechMaster",
+                "storage": "128GB",
+                "price": "15,000",
+                "rating": 5.9,
+                "description": "Powerful smartphone with ample storage, perfect for everyday use.",
+                "category": "Smartphone",
+                "image": "Smartphone",
+                "color": "black"
+            },
+            {
+                "id": 2,
+                "name": "Laptop",
+                "brand": "BravoBook",
+                "storage": "512GB SSD",
+                "price": "60,000",
+                "rating": 7.9,
+                "description": "High-performance laptop with a sleek design and fast storage.",
+                "category": "Laptop",
+                "image": "Laptop",
+                "color": "silver"
+            },
+            {
+                "id": 3,
+                "name": "Wireless Headphones",
+                "brand": "AudioPro",
+                "price": "899",
+                "rating": 8.5,
+                "description": "Premium wireless headphones with immersive sound quality.",
+                "category": "Headphones",
+                "image": "Wireless Headphones",
+                "color": "white"
+            },
+            {
+                "id": 4,
+                "name": "Tablet",
+                "brand": "TechTab",
+                "storage": "64GB",
+                "price": "20,999",
+                "rating": 9.0,
+                "description": "Sleek and powerful tablet for productivity and entertainment.",
+                "category": "Tablet",
+                "image": "Tablet",
+                "color": "gold"
+            },
+            {
+                "id": 5,
+                "name": "Fitness Tracker",
+                "brand": "ActiveLife",
+                "price": "499",
+                "rating": 7.2,
+                "description": "Smart fitness tracker to monitor your health and activities.",
+                "category": "Fitness Tracker",
+                "image": "Fitness Tracker",
+                "color": "black"
+            },
+            {
+                "id": 6,
+                "name": "Smartwatch",
+                "brand": "TechWear",
+                "price": "1,999",
+                "rating": 8.8,
+                "description": "Stylish smartwatch with advanced features for everyday use.",
+                "category": "Smartwatch",
+                "image": "Smartwatch",
+                "color": "dark green"
+            }
+        ]
+    },
+    {
+        "category": "jewelry",
+        "data": [
+            {
+                "id": 1,
+                "name": "Diamond Necklace",
+                "material": "Gold",
+                "style": "Pendant",
+                "price": "99,999",
+                "rating": 9.9,
+                "description": "Exquisite diamond necklace crafted in gold, a perfect gift.",
+                "category": "Diamond Necklace",
+                "image": "Diamond Necklace",
+                "color": "silver"
+            },
+            {
+                "id": 2,
+                "name": "Silver Bracelet",
+                "material": "Silver",
+                "style": "Chain",
+                "price": "7,999",
+                "rating": 7.9,
+                "description": "Elegant silver bracelet designed in a chain style for daily wear.",
+                "category": "Silver Bracelet",
+                "image": "Silver Bracelet",
+                "color": "silver"
+            },
+            {
+                "id": 3,
+                "name": "Sapphire Ring",
+                "material": "White Gold",
+                "style": "Solitaire",
+                "price": "25,499",
+                "rating": 8.2,
+                "description": "Beautiful sapphire ring in white gold, a symbol of elegance.",
+                "category": "Sapphire Ring",
+                "image": "Sapphire Ring",
+                "color": "gold"
+            },
+            {
+                "id": 4,
+                "name": "Pearl Earrings",
+                "material": "Pearl",
+                "style": "Drop",
+                "price": "3,999",
+                "rating": 8.7,
+                "description": "Classic pearl earrings with a timeless and sophisticated design.",
+                "category": "Pearl Earrings",
+                "image": "Pearl Earrings",
+                "color": "white"
+            },
+            {
+                "id": 5,
+                "name": "Gold Bangle",
+                "material": "Gold",
+                "style": "Bangle",
+                "price": "12,999",
+                "rating": 9.5,
+                "description": "A stylish and versatile gold bangle for a touch of glamour.",
+                "category": "Gold Bangle",
+                "image": "Gold Bangle",
+                "color": "gold"
+            },
+            {
+                "id": 6,
+                "name": "Emerald Pendant",
+                "material": "Gold",
+                "style": "Pendant",
+                "price": "18,999",
+                "rating": 8.9,
+                "description": "Exquisite emerald pendant crafted in gold, a statement piece.",
+                "category": "Emerald Pendant",
+                "image": "Emerald Pendant",
+                "color": "green"
+            }
+        ]
+    }
+]

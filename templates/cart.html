@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart</title>
+</head>
+<body>
+{% extends 'main.html' %}
+{% block content %}
+{% load static %}
+<div>
+  <div class="container mx-auto px-4">
+    <h1 class="text-3xl lg:text-4xl tracking-tight font-semibold leading-8 lg:leading-9 text-gray-800 dark:text-white dark:text-white mb-4">Shopping Cart</h1>
+    {% if cart and username %}
+    <div class="flex flex-col md:flex-row gap-2">
+      <div class="md:w-3/4 mt-4">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-4">
+          <table class="w-full table-auto">
+            <thead>
+              <tr>
+                <th class="text-left font-semibold">Product</th>
+                <th class="text-left font-semibold">Price</th>
+                <th class="text-left font-semibold">Category</th>
+                <th class="text-left font-semibold">Size</th>
+                <th class="text-left font-semibold">Color</th>
+                <th class="text-left font-semibold">Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for cart_item in cart %}
+              <tr class="text-sm">
+                <td class="py-4">
+                  <div class="flex items-center">
+                    <img class="h-16 w-16 mr-4 object-cover rounded-md" src="{% static 'images/' %}{{ cart_item.image }}.jpg" alt="Product image"/>
+                    <span class="font-semibold">{{ cart_item.name }}</span>
+                  </div>
+                </td>
+                <td id="itemprice_{{ cart_item.id }}" class="py-4 item-price" data-name="{{ cart_item.name }}" data-size="{{ cart_item.size }}" data-color="{{ cart_item.color }}">₹{{ cart_item.price }}</td>
+                <td class="py-4">{{ cart_item.category | upper }}</td>
+                <td class="py-4">{{ cart_item.size | upper }}</td>
+                <td class="py-4">{{ cart_item.color | upper }}</td>
+                <td class="py-4">
+                  <div class="flex items-center">
+                      <button class="hover:bg-gray-800 hover:text-white border rounded-md py-2 px-4 mr-2"onclick="handleCount('decrement', '{{ cart_item.id }}')">-</button>
+                      <span class="text-center w-8" name='quantity' id="numberDisplay_{{ cart_item.id }}">1</span>
+                      <button class="hover:bg-gray-800 hover:text-white border rounded-md py-2 px-4 ml-2" onclick="handleCount('increment', '{{ cart_item.id }}')">+</button>
+                  </div>
+                </td>
+                <td class="text-red-600 cursor-pointer hover:underline">
+                  <a href="{% url 'remove_from_cart' category=cart_item.category id=cart_item.id %}">Remove</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="md:w-2/4 mt-4">
+        <form method="POST" action="{% url 'order_confirmation' %}">
+          {% csrf_token %}
+        <div class="bg-gray-100 rounded-lg shadow-md p-6">
+          <h2 class="text-lg font-semibold">Payment Details</h2>
+          <p class="italic underline mb-4">Complete your order by providing your payment details.</p>
+          <div>
+            <label for="billing-address" class="mt-4 mb-2 block text-sm font-medium">Billing Address</label>
+            <div class="flex flex-col sm:flex-row">
+              <div class="relative flex-shrink-0 sm:w-7/12">
+                <input type="text" name="billing-address" class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Street Address" />
+              </div>
+              <input type="text" name="billing-state" class="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="State" />
+              <input type="number" name="billing-zip" class="flex-shrink-0 rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="ZIP" />
+            </div>
+            <div class="mt-4 mb-2 flex flex-row items-center justify-start">
+              <p class="block text-sm font-medium">Payment Method</p>
+              <p class="hidden" id="payment_method"></p>
+              <div class="flex items-center justify-center ml-4">
+                <label class="inline-flex items-center justify-center cursor-pointer">
+                  <input type="radio" class="cursor-pointer" name="payment_method" value="Card" onclick="handlePayment('Card')" required>
+                  <span class="ml-2">Card</span>
+                </label>
+                <label class="inline-flex items-center justify-center ml-4 cursor-pointer">
+                  <input type="radio" class="cursor-pointer" name="payment_method" value="Cash on Delivery" onclick="handlePayment('Cash on Delivery')" required>
+                  <span class="ml-2">COD - cash on delivery</span>
+                </label>                            
+              </div> 
+            </div>            
+            <div id="card-holder" style="position: absolute; left: -9999px;">
+              <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Card Holder Name</label>
+              <div class="relative">
+                <input type="text" id="card-holder" name="card-holder" maxlength="30" class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none" placeholder="Your full name here"/>
+                <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                </div>
+              </div>
+            </div>
+            <div id="card-details" style="position: absolute; left: -9999px;">
+              <label for="card-no" class="mt-4 mb-2 block text-sm font-medium">Card Details</label>
+              <div class="flex">
+                <div class="relative w-7/12 flex-shrink-0">
+                  <input type="text" id="card-no" name="card-no" maxlength="19" class="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-base shadow-sm outline-none" placeholder="xxxx-xxxx-xxxx-xxxx"/>
+                </div>
+                <input type="text" id="credit-expiry" name="credit-expiry" maxlength="5" class="w-full rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none" placeholder="MM/YY" />
+                <input type="password" id="credit-cvc" name="credit-cvc" maxlength="3" class="w-1/6 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none" placeholder="CVC" />
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-between mb-2 mt-4">
+              <span>Subtotal</span>
+              <span id="subtotal">0</span>
+          </div>
+          <div class="flex justify-between mb-2">
+              <span>Taxes</span>
+              <span id="taxes">0</span>
+          </div>
+          <hr class="my-2" />
+          <div class="flex justify-between mb-2">
+              <span class="font-semibold">Total</span>
+              <span id="total_price" class="font-semibold">0</span>
+          </div>
+            <input type="hidden" name="order_data" value="">
+            <button type="submit" onclick="displayData()" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg mt-4 w-full">Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    {% else %}
+    <h2 class="text-2xl font-semibold mb-4 text-gray-700 text-center uppercase">
+      Oops! Your cart is feeling a bit lonely.
+      <br />
+      Discover amazing products and add some joy to your cart!
+    </h2>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+</body>
+</html>

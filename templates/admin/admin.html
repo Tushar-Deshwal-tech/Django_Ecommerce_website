@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+</head>
+<body class="text-black">
+ {% extends 'admin/base.html' %}
+ {% block content %}
+    <h1 class="flex items-center font-sans text-center font-bold break-normal text-indigo-500 px-2 py-8 text-xl">
+        <div class="flex">
+            <span class="underline mr-1">Total Review:</span>{{ review_data|length }}
+            <span class="underline mr-1 ml-6">Total Order:</span>{{ order_details|length }}
+        </div>
+    </h1>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+    </div>
+    </div>
+    <div class="mt-2 flex justify-around font-sans text-center font-bold break-normal text-orange-500 text-xl">
+        <div class="underline">Review Details</div>
+        <div class="underline">Order Details</div>
+    </div>
+    <div class="flex justify-between mt-4">
+        <div class="w-1/2 border border-gray-300 rounded-lg shadow-md overflow-hidden mr-4">
+          <table class="w-full table-fixed text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3 rounded-s-lg">
+                        User name
+                    </th>
+                    <th scope="col" class="py-3">
+                        Message
+                    </th>
+                    <th scope="col" class="px-24 py-3 rounded-e-lg">
+                        Rating
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in review_data %}
+                <tr class="bg-white dark:bg-gray-800">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <review class="user_name3">{{review.user_name|capfirst}}</review>
+                    </th>
+                    <td class="py-4">
+                        {{review.text|slice:":30" }}{% if review.text|length > 30 %}...{% endif %}
+                    </td>
+                    <td class="px-24 py-4">
+                        {{review.star}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="w-1/2 border border-gray-300 rounded-lg shadow-md overflow-hidden">
+          <table class="w-full table-fixed text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3 rounded-s-lg">
+                        Order No.
+                    </th>
+                    <th scope="col" class="px-6 py-3 rounded-s-lg">
+                        Order By
+                    </th>
+                    <th scope="col" class="px-6 py-3 rounded-e-lg">
+                        Total Item
+                    </th>
+                    <th scope="col" class="px-6 py-3 rounded-e-lg">
+                        Total Price
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in order_details %}
+                <tr class="bg-white dark:bg-gray-800">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{order.order_number}}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{order.order_by|capfirst}}
+                    </td>
+                    
+                    <td class="px-6 py-4">
+                        {{order.total_item}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{order.total_price}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+    </div>
+ {% endblock %}
+</body>
+</html>

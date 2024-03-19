@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+  {% extends 'main.html' %} 
+  {% block content %}
+  {% load static %}
+  {% if order_data and username %}
+    {% for order in order_data %}
+      <div class="max-w-5xl mx-auto rounded-lg shadow-md mt-4">
+        <div class="p-4 text-center mb-4 bg-gray-200 flex justify-between items-center rounded-t-lg">
+          <div class="flex justify-between items-center text-black text-xs">
+            <div class="mr-4">
+              <p>ORDER PLACED</p>
+              <p>{{ order.order.order_time }}</p>
+            </div>
+            <div class="mr-4">
+              <p>TOTAL</p>
+              <p>₹{{ order.order.total_price }}</p>
+            </div>
+            <div class="mr-4">
+              <p>SHIP TO</p>
+              <p>{{ order.order.order_by | title }}</p>
+            </div>
+            <div>
+              <p>Payment Method</p>
+              <p>{{ order.order.payment_method }}</p>
+            </div>
+          </div>
+          <div class="mr-4">
+            <p class="text-black text-base">ORDER #{{ order.order.order_number }}</p>
+          </div>
+        </div>
+
+        <div class="mb-4 p-4 -mt-6">
+          <div>
+            <h2 class="text-2xl font-semibold">Delivered Sunday</h2>
+            <p class="text-gray-500">Package was handed to resident</p>
+          </div>
+          {% for order_item in order.order_items.all %}
+            <div class="mt-8 flex justify-start items-center text-sm">
+              <img src="{% static 'images/Diamond Necklace' %}.jpg" alt="Product image" style="width: 60px; height: 50px;" class="rounded-md object-cover">
+              <h3 class="ml-8"><strong>Name:</strong> {{ order_item.item_name }}</h3>
+              <h3 class="ml-8"><strong>Size:</strong> {{ order_item.item_size|upper }}</h3>
+              <h3 class="ml-8"> <strong>Color:</strong> {{ order_item.item_color|upper }}</h3>
+              <h3 class="ml-8"> <strong>Quantity:</strong> {{ order_item.item_quantity }}</h3>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="border-t-2 text-left p-4 flex justify-between items-center">
+          <span class="text-gray-700 cursor-pointer hover:text-red-700 hover:underline">Archive order</span>
+          <div class="text-center">
+            <p class="text-base dark:text-white font-semibold leading-4 text-gray-800">Billing Address</p>
+            <p class="text-sm leading-5 dark:text-gray-300 text-gray-600">180 North King Street, Northampton MA 1060</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <h2 class="text-2xl font-semibold mb-4 text-gray-700 text-center uppercase content-center">
+      Oops! No Orders Yet.
+      <br>
+      You haven't placed any orders yet.
+      <br>
+      Explore our collection and add products to your cart to start your shopping journey!
+    </h2>
+  {% endif %}
+  {% endblock %}
+</body>
+</html>

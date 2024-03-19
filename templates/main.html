@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {% block title %}
+    {% endblock %}
+  </title>
+  <style>
+    /* .category {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 10px;
+      z-index: 1;
+    } */
+    .option:hover .category {
+      display: block; 
+      background-color: #E5E7EB;
+    }
+    /* .category a {
+      display: block;
+      padding: 5px;
+    }
+    .category a:hover {
+      background-color: #BFDBFE;
+    } */
+  </style>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'mystyle.css' %}">
+  <script src="{% static 'myscript.js' %}"></script>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav class="bg-white border-gray-200 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-600">
+      <div class="flex  items-center justify-between mx-auto p-2">
+        <a href="/"><img class="w-full h-12 rounded-full" src="{% static 'images/Ecommerce' %}.jpg" alt="Product Image"></a>
+       {% if username %}
+        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <button type="button" class="cursor-default text-black bg-white font-medium rounded-lg text-sm px-6 py-3 me-2 mb-2 border border-gray-800">
+              {{ username | capfirst }}
+            </button>
+            <a href="/logout_user"><button type="button" class="ml-4 text-gray-300 bg-gray-700 hover:bg-gray-900 hover:text-white font-medium rounded-lg text-sm px-6 py-3 me-2 mb-2 border border-gray-800">
+              Logout
+            </button></a>
+        </div>
+        {% else %}
+        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <a href="/login_page">
+                <button type="button" class="text-white bg-gray-900 hover:bg-gray-600 font-medium rounded-lg text-sm px-6 py-3 me-2 mb-2">
+                    Login
+                </button>
+            </a>
+        </div>
+        {% endif %}
+        <div class="flex items-center justify-center ml-24 w-6/12">
+         <ul class="flex list-none font-medium text-lg text-gray-900 items-center justify-between p-0 cursor-pointer">
+          <li class="mx-2 hover:underline hover:text-blue-500"><a href="/">Home</a></li>
+          <li class="mx-2 hover:underline hover:text-blue-500"><a href="{% url 'products' category='all' %}">Products</a></li>
+          <li class="mx-2 hover:underline hover:text-blue-500"><a href="/cart" id="cartLink" onclick="run()">Cart</a></li>
+          <li class="mx-2 hover:underline hover:text-blue-500"><a href="/wishlist">Wishlist</a></li>
+          <li class="mx-2 hover:underline hover:text-blue-500"><a href="/orders">Order</a></li>
+          <li class="option mx-2 hover:text-blue-500" id="selectedCategory">Category
+            <div class="category z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 absolute">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                  <li><a href="{% url 'products' category='all' %}" class="block py-1 px-2 hover:bg-gray-100">All</a></li>
+                  <li><a href="{% url 'products' category='men' %}" class="block py-1 px-2 hover:bg-gray-100">Men</a></li>
+                  <li><a href="{% url 'products' category='women' %}" class="block py-1 px-2 hover:bg-gray-100">Women</a></li>
+                  <li><a href="{% url 'products' category='electronics' %}" class="block py-1 px-2 hover:bg-gray-100">Electronics</a></li>
+                  <li><a href="{% url 'products' category='jewelry' %}" class="block py-1 px-2 hover:bg-gray-100">Jewelry</a></li>
+              </ul>
+            </div>
+          </li>          
+         </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div>
+    <div class="alert_messages">
+      {% include 'alert_messages.html' %}
+    </div>
+    <div class="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+  <script>
+    function updateCategory(categoryname) {
+        let selectedCategory = document.getElementById('selectedCategory');
+
+        const allcategory = document.getElementById('all');
+        const mencategory = document.getElementById('men'); 
+        const womencategory = document.getElementById('women'); 
+        const electronicscategory = document.getElementById('electronics'); 
+        const jewelrycategory = document.getElementById('jewelry');
+
+        // Hide the "All" category option when user selects any other category
+        allcategory.classList.add('hide');
+        selectedCategory.innerHTML = categoryname;
+
+        // Show all category options initially
+        mencategory.classList.remove('hide');
+        womencategory.classList.remove('hide');
+        electronicscategory.classList.remove('hide');
+        jewelrycategory.classList.remove('hide');
+
+        // Hide the selected category option
+        switch (categoryname) {
+            case 'men':
+                mencategory.classList.add('hide');
+                break;
+            case 'women':
+                womencategory.classList.add('hide');
+                break;
+            case 'electronics':
+                electronicscategory.classList.add('hide');
+                break;
+            case 'jewelry':
+                jewelrycategory.classList.add('hide');
+                break;
+            default:
+                break;
+        }
+    };
+
+    // document.querySelector('#selectedCategory').addEventListener('mouseover', () => {
+    //     const category = document.querySelector('#Categorysection');
+    //     if (category.classList.contains('hidden')) {
+    //         category.classList.remove('hidden');
+    //     } else {
+    //         category.classList.add('hidden');
+    //     }
+    // });
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+ <style>
+  .reviewButton{
+   position: fixed;
+   bottom: 0;
+   margin-left: 6px;
+   margin-bottom: 6px;
+  }
+  .reviewSection {
+      position: fixed;
+      top: 50%; /* Move it down to the middle of the viewport */
+      left: 50%; /* Move it horizontally to the middle of the viewport */
+      transform: translate(-50%, -50%); /* Center it precisely */
+      width: 80%;
+      max-width: 400px;
+      z-index: 1;
+  }
+ </style>
+</head>
+<body>
+  {% extends 'main.html' %}
+  {% block content %}
+  {% load static %}
+  <div class="content">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="text-4xl font-bold tracking-tight text-gray-900 ">
+          Discover Style and Savings at more Tushar Deshwal
+        </h2>
+        <p class="mt-6 text-lg leading-8 text-gray-600">
+          Welcome to Tushar Deshwal, where style meets savings! Explore a curated collection of the latest fashion trends, cutting-edge electronics, and exquisite jewelry. Elevate your shopping experience with unbeatable prices, exclusive offers, and a seamless online journey. Shop smart, shop stylish – Tushar Deshwal has it all!
+        </p>
+        <div class="mt-10 flex items-center justify-center gap-x-6">
+          <a href="{% url 'products' category='all' %}" class="inline-flex items-center justify-center px-8 py-3 text-base font-bold text-white bg-gray-900 hover:bg-gray-600 rounded">View More</a>
+        </div>
+      </div>      
+    </div>
+  </div>
+ <footer>
+    <div class="reviewButton">
+         <button id="reviewButton" class="text-white bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg shadow-md">
+           Write a Review
+         </button>
+    </div>
+   </footer>
+  <div class="reviewSection mx-auto hidden">
+  <div class="w-full max-w-md">
+   <div class="p-6 bg-white text-black border-solid w-auto h-auto border-2 border-purple-700 rounded-lg shadow-lg">
+     <div>
+       <h1 class="text-4xl font-bold text-center text-purple-700 ">Review</h1>
+     </div>
+     <form class="space-y-4 text-sm" action="{% url 'review' %}" method="post">
+         {% csrf_token %}
+          <div id="star" class="flex justify-center cursor-pointer">
+              <svg id="star-1" class="w-8 h-8 text-gray-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20" onclick="handlestar(1)">
+                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+              </svg>
+              <svg id="star-2" class="w-8 h-8 text-gray-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20" onclick="handlestar(2)">
+                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+              </svg>
+              <svg id="star-3" class="w-8 h-8 text-gray-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20" onclick="handlestar(3)">
+                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+              </svg>
+              <svg id="star-4" class="w-8 h-8 text-gray-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20" onclick="handlestar(4)">
+                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+              </svg>
+              <svg id="star-5" class="w-8 h-8 text-gray-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20" onclick="handlestar(5)">
+                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+              </svg>
+          </div>
+          <div id="rating" name="rating" class="flex justify-center text-center"></div>
+         <div>
+          <textarea id="message" name="message" rows="3" class=" p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
+         </div>
+         <input type="hidden" id="rating-input" name="rating">
+         <div class="flex justify-between">
+             <button type="submit" 
+              class="w-full bg-purple-700 hover:bg-purple-900 text-white font-bold py-3 px-3 rounded-lg">Submit
+             </button>
+             <button type="button"
+                class="exit ml-4 w-full bg-purple-700 hover:bg-purple-900 text-white font-bold py-3 px-3 rounded-lg">Cancel
+             </button>
+         </div>
+     </form>
+    </div>
+   </div>
+  </div>
+  <script>
+    document.getElementById("reviewButton").addEventListener("click", function() {
+        var reviewSection = document.querySelector(".reviewSection");
+        if (reviewSection.classList.contains('hidden')) {
+            reviewSection.classList.remove('hidden');
+        } else {
+            reviewSection.classList.add('hidden');
+        }
+    });
+    function handlestar(number) {
+     const stars = document.querySelectorAll('#star');
+     document.getElementById('rating-input').value = number;
+     for (let i = 0; i < number; i++) {
+       document.getElementById('star-' + (i + 1)).classList.remove('text-gray-300');
+       document.getElementById('star-' + (i + 1)).classList.add('text-yellow-500');
+     }
+     for (let i = number; i < 5; i++) {
+       document.getElementById('star-' + (i + 1)).classList.remove('text-yellow-500');
+       document.getElementById('star-' + (i + 1)).classList.add('text-gray-300');
+     }
+    switch (number) {
+      case 1:
+        document.getElementById('rating').innerHTML = '1 Star 😞';
+        break;
+      case 2:
+        document.getElementById('rating').innerHTML = '2 Stars 😐';
+        break;
+      case 3:
+        document.getElementById('rating').innerHTML = '3 Stars 🙂';
+        break;
+      case 4:
+        document.getElementById('rating').innerHTML = '4 Stars 😃';
+        break;
+      case 5:
+        document.getElementById('rating').innerHTML = '5 Stars 😄';
+        break;
+    }
+  };
+  document.querySelector(".exit").addEventListener("click", function() {
+  document.querySelector(".reviewSection").classList.add('hidden');
+  });
+  </script>
+  {% endblock %}
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+</head>
+<body>
+{% extends 'main.html' %}
+{% block content %}
+{% load static %}
+
+<div class="grid grid-cols-4 gap-4">
+  {% for category in detail %}
+    {% for item in category.data %}
+      <div role="status" class="max-w-sm p-4 border border-gray-200 rounded md:p-4 dark:border-gray-700">
+        <div>
+          <a href="{% url 'item' category=item.category id=item.id %}" style="cursor: pointer;">
+              <img class="flex items-center justify-center w-full h-48 mb-4 object-cover max-w-full" src="{% static 'images/' %}{{ item.image }}.jpg" alt="Product Image">
+          </a>
+        </div>       
+        <h1 class="flex justify-center"></h1>
+        <div class="flex justify-between items-center mt-2">
+          <div>
+            <h2 class="mt-2">{{ item.brand }} {{ item.storage }} {{ item.material }} {{ item.style }}</h2>
+          </div>
+          <div>
+            <p>{{ item.category }}</p>
+          </div>
+        </div>
+        <div class="flex justify-between items-center mt-2">
+          <div>
+            <p>Price: ₹{{ item.price }}</p>
+          </div>
+          <div>
+            <p>Rating: {{ item.rating }}</p>
+          </div>
+        </div>
+        <p class="mt-2">{{ item.description|slice:":45" }}{% if item.description|length > 45 %}...{% endif %}</p>
+      </div>
+    {% endfor %}
+  {% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>

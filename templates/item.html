@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% extends 'main.html' %} 
+{% block content %}
+{% load static %}
+<div class="py-8">
+    <div class="mt-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row -mx-4">
+            <div class="md:flex-1 px-4">
+                <div class=" mb-4">
+                    <img class="w-full h-full object-cover" src="{% static 'images/' %}{{ selected_item.image }}.jpg" alt="Product Image" style="max-height: 290px; max-width: 500px;">
+                </div>
+                <div class="flex -mx-2 mb-4">
+                    <div class="w-1/2 px-2">
+                      <form method="POST" action="{% url 'add_to_cart' category=selected_item.category id=selected_item.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="final_size" value="{{ selected_item.size}}">
+                        <input type="hidden" name="final_color" value="{{ selected_item.color}}">
+                            <button class="w-full bg-gray-900 dark:bg-gray-600 text-white py-3 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Add to Cart</button>
+                      </form>
+                    </div>
+                    <div class="w-1/2 px-2">
+                        <a href="{% url 'add_to_wishlist' category=selected_item.category id=selected_item.id %}"><button class="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-3 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600">Add to Wishlist</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="md:flex-1 px-4 ">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">{{selected_item.name}}</h2>
+                <div class="flex justify-start mb-4">
+                    <div class="mr-4">
+                        <span class="font-bold text-gray-700 dark:text-gray-300">Price:</span>
+                        <span class="text-gray-600 dark:text-gray-300">₹{{selected_item.price}}</span>
+                    </div>
+                    <div>
+                        <span class="font-bold text-gray-700 dark:text-gray-300">Rating:</span>
+                        <span class="text-gray-600 dark:text-gray-300">{{selected_item.rating}}</span>
+                    </div>
+                </div>
+                <div class="flex justify-start mb-4">
+                    <div class="mr-4">
+                        <span class="font-bold text-gray-700 dark:text-gray-300">Availability:</span>
+                        <span class="text-gray-600 dark:text-gray-300">In Stock</span>
+                    </div>
+                    <div>
+                        <span class="font-bold text-gray-700 dark:text-gray-300">Brand:</span>
+                        <span class="text-gray-600 dark:text-gray-300">{{selected_item.brand}} {{selected_item.material}}</span>
+                    </div>
+                </div>
+                <div class="mb-4 mt-4">
+                <span class="font-bold text-gray-700 dark:text-gray-300">Selected Color:</span>
+                  <span id="selected_color" name="selected_color">{{ selected_item.color | upper }}</span>
+                    <div class="flex justify-start items-center mt-2">
+                      <input type="checkbox" id="gray" name="gray" class="hidden" onclick="handleColor('gray')">
+                      <label for="gray" class="w-6 h-6 rounded-full bg-gray-500 dark:bg-gray-200 mr-2 cursor-pointer"></label>
+
+                      <input type="checkbox" id="red" name="red" class="hidden" onclick="handleColor('red')">
+                      <label for="red" class="w-6 h-6 rounded-full bg-red-500 dark:bg-red-700 mr-2 cursor-pointer"></label>
+
+                      <input type="checkbox" id="blue" name="blue" class="hidden" onclick="handleColor('blue')">
+                      <label for="blue" class="w-6 h-6 rounded-full bg-blue-500 dark:bg-blue-700 mr-2 cursor-pointer"></label>
+
+                      <input type="checkbox" id="black" name="black" class="hidden" onclick="handleColor('black')">
+                      <label for="black" class="w-6 h-6 rounded-full bg-black dark:bg-black mr-2 cursor-pointer"></label>
+                    </div>
+                </div>
+                <div class="mb-4" id="item_size">
+                    <span class="font-bold text-gray-700 dark:text-gray-300">Select Size:</span>
+                    <span id="selected_size" name="selected_size">{{ selected_item.size | upper }}</span>
+                    <div class="flex justify-start items-center mt-2">
+                        <input type="checkbox" id="S" name="S" class="hidden" onclick="handlesize('S')">
+                        <label for="S" class="size-checkbox bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer">S</label>
+  
+                        <input type="checkbox" id="M" name="M" class="hidden" onclick="handlesize('M')">
+                        <label for="M" class="size-checkbox bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer">M</label>
+  
+                        <input type="checkbox" id="L" name="L" class="hidden" onclick="handlesize('L')">
+                        <label for="L" class="size-checkbox bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer">L</label>
+  
+                        <input type="checkbox" id="XL" name="XL" class="hidden" onclick="handlesize('XL')">
+                        <label for="XL" class="size-checkbox bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600 cursor-pointer">XL</label>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-bold text-gray-700 dark:text-gray-300">Product Description:</span>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mt-2">{{selected_item.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

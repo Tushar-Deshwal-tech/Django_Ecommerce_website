@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% extends 'main.html' %}
+{% block content %}
+{% load static %}
+<div class="ml-40">
+  <h1 class="text-3xl lg:text-4xl tracking-tight font-semibold leading-8 lg:leading-9 text-gray-800 dark:text-white dark:text-white">Favourites</h1>
+  <p class="mt-4 text-2xl tracking-tight leading-6 text-gray-600 dark:text-white">{{total_item}} items</p>
+</div>
+{% if  wishlist and username %}
+<div class="mx-auto container px-4 md:px-6 2xl:px-0 flex justify-center items-center">
+  <div class="flex flex-col jusitfy-start items-start">
+    <div class="mt-6 grid grid-cols-3 gap-x-8 gap-y-10 lg:gap-y-0">
+      {% for wishlist_item in wishlist %}
+      <div class="flex flex-col">
+        <div class="relative">
+            <img class="object-cover" style="min-width: 350px; max-width: 400px; max-height: 200px; width: auto; height: auto;" src="{% static 'images/' %}{{ wishlist_item.image }}.jpg" alt="bag" />
+        </div>
+        <div class="mt-2 flex justify-between items-center mt-2">
+          <div>
+            <p class="text-2xl font-semibold text-center text-gray-800 dark:text-white">{{ wishlist_item.name }}</p>
+          </div>
+          <div>
+            <p class="text-2xl font-semibold text-center text-gray-800 dark:text-white">₹{{ wishlist_item.price }}</p>
+          </div>
+        </div>
+        <div class="flex jusitfy-between flex-col lg:flex-row items-center mt-4 mb-4 w-full space-y-4 lg:space-y-0 lg:space-x-4 xl:space-x-8">
+          <div class="w-full">
+            <a href="{% url 'remove_from_wishlist' category=wishlist_item.category id=wishlist_item.id %}"><button class="text-black w-full tracking-tight py-4 text-lg leading-4 hover:bg-gray-300 hover:text-white hover:bg-gray-800 bg-white border border-gray-800">Remove</button></a>
+          </div>
+          <div class="w-full">
+            <a href="{% url 'add_cart_from_wishlist' category=wishlist_item.category id=wishlist_item.id %}"><button class="text-white w-full tracking-tight py-4 text-lg leading-4 hover:bg-white hover:text-black bg-gray-800 border border-gray-800">Add to cart</button></a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% else %}
+<h2 class="text-2xl font-semibold mb-4 text-gray-700 text-center uppercase">
+  Oops! Your wishlist is feeling a bit empty.
+  <br />
+  Discover amazing products and add some joy to your wishlist!
+</h2>
+{% endif %}
+{% endblock %}
+</body>
+</html>
