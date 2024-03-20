@@ -1,6 +1,20 @@
-# render.yaml
+databases:
+  - name: django_ecommerce_website_userdb
+    plan: free
+    databaseName: mysite
+    user: django_ecommerce_website_user
 
 services:
-  - name: web
-    buildCommand: python manage.py collectstatic --no-input
-    startCommand: gunicorn Ecommerce_website.wsgi:application --bind 0.0.0.0:8000
+  - type: web
+    plan: free
+    name: Ecommerce_website
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "python -m gunicorn Ecommerce_website.asgi:application -k uvicorn.workers.UvicornWorker"
+    envVars:
+      - key: DATABASE_URL
+        value: "postgres://django_ecommerce_website_user:UjaxB3yUELpGKyHFe30ilrU1qJ1VU7Qh@dpg-cnsnra0l5elc73flnc30-a.oregon-postgres.render.com/django_ecommerce_website"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
